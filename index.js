@@ -1,5 +1,3 @@
-require("FontDennis8").add(Graphics);
-
 /**
  * Constructor for Adafruit LED Matrix Backpacks which can be used as a base for 8x8 and 16x8 matrices.
  * Provides drawing capabilities like the Adafruit Arduino Library API.
@@ -21,7 +19,7 @@ function Matrix(options) {
     I2C1.writeTo(this.address, 0x81); // disp on
     this.setBrightness(options.brightness);
     this.context = Graphics.createArrayBuffer(16,8,1);
-    this.context.setFontDennis8();
+    this.context.setFontVector(4);
 }
 
 
@@ -139,7 +137,7 @@ Matrix.prototype.startScrollText = function(text, speed) {
     var self = this;
     this.scrollInterval = setInterval(function() {
       self.clear();
-      self.context.drawString(text, -n, 0);
+      self.context.drawString(text, -n, 4);
       n++;
       if (n > self.context.stringWidth(text)) n = -self.context.getWidth();
       self.render();
